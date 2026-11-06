@@ -60,13 +60,27 @@ export function HomePage() {
         </div>
       </section>
 
+
+      {/* CIRCULARS SECTION */}
       <section className="section-block">
         <div className="container">
-          <SectionHead eyebrow={`📑 ${t(lang, stx.homeCircularsEyebrowHi, stx.homeCircularsEyebrowEn)}`} title={t(lang, stx.homeCircularsTitleHi, stx.homeCircularsTitleEn)} sub={t(lang, stx.homeCircularsSubHi, stx.homeCircularsSubEn)} action={<button className="btn btn-primary btn-sm" onClick={() => setRoute("circulars")}>{t(lang, "सभी सर्कुलर देखें", "View All Circulars")} →</button>} />
-          <div className="circulars-grid">{(state.circulars || []).slice(0, 3).map((c) => <CircularCard key={c.id} item={c} />)}</div>
+          <SectionHead
+            eyebrow={`📑 ${t(lang, stx.homeCircularsEyebrowHi, stx.homeCircularsEyebrowEn)}`}
+            title={t(lang, stx.homeCircularsTitleHi, stx.homeCircularsTitleEn)}
+            sub={t(lang, stx.homeCircularsSubHi, stx.homeCircularsSubEn)}
+            action={
+              <button className="btn btn-primary btn-sm" onClick={() => setRoute("circulars")}>
+                📁 {t(lang, "सभी सर्कुलर व पीडीएफ देखें", "View All Circulars & PDFs")} →
+              </button>
+            }
+          />
+          <div className="circulars-grid">
+            {(state.circulars || []).slice(0, 3).map((c) => <CircularCard key={c.id} item={c} />)}
+          </div>
         </div>
       </section>
 
+      {/* PORTALS SECTION */}
       <section className="section-block alt-bg">
         <div className="container">
           <SectionHead eyebrow={`🌐 ${t(lang, stx.homePortalsEyebrowHi, stx.homePortalsEyebrowEn)}`} title={t(lang, stx.homePortalsTitleHi, stx.homePortalsTitleEn)} sub={t(lang, stx.homePortalsSubHi, stx.homePortalsSubEn)} action={<button className="btn btn-outline btn-sm" onClick={() => setRoute("portals")}>{t(lang, "सभी पोर्टल देखें", "View All Portals")} →</button>} />
@@ -74,9 +88,19 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* DEMANDS / CHARTER SECTION */}
       <section className="section-block">
         <div className="container">
-          <SectionHead eyebrow={`✊ ${t(lang, stx.homeDemandsEyebrowHi, stx.homeDemandsEyebrowEn)}`} title={t(lang, stx.homeDemandsTitleHi, stx.homeDemandsTitleEn)} sub={t(lang, stx.homeDemandsSubHi, stx.homeDemandsSubEn)} />
+          <SectionHead
+            eyebrow={`🤝 ${t(lang, stx.homeDemandsEyebrowHi, stx.homeDemandsEyebrowEn)}`}
+            title={t(lang, stx.homeDemandsTitleHi, stx.homeDemandsTitleEn)}
+            sub={t(lang, stx.homeDemandsSubHi, stx.homeDemandsSubEn)}
+          />
+          <div style={{ marginBottom: 18 }}>
+            <button className="btn btn-outline btn-sm" onClick={() => setRoute("about")}>
+              🏛 {t(lang, "संघ परिचय, प्रमाण-पत्र व मुख्य कार्यकारिणी →", "About, Certificates & Core Executive →")}
+            </button>
+          </div>
           <div className="demands-grid">
             {state.demands.map((d) => (
               <div className="demand-card" key={d.id}>
@@ -89,24 +113,58 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* MEMBERS SECTION */}
       <section className="section-block alt-bg">
         <div className="container">
-          <SectionHead eyebrow={`👥 ${t(lang, stx.homeMembersEyebrowHi, stx.homeMembersEyebrowEn)}`} title={t(lang, stx.homeMembersTitleHi, stx.homeMembersTitleEn)} action={<button className="btn btn-primary btn-sm" onClick={() => setRoute("members")}>{t(lang, "संपूर्ण सदस्य सूची", "Full Member Directory")} →</button>} />
-          <div className="general-members-grid">{members.map((m) => <MemberCard key={m.id} member={m} compact />)}</div>
+          <SectionHead
+            eyebrow={`👥 ${t(lang, stx.homeMembersEyebrowHi, stx.homeMembersEyebrowEn)}`}
+            title={t(lang, stx.homeMembersTitleHi, stx.homeMembersTitleEn)}
+            action={
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                <button className="btn btn-outline btn-sm" onClick={() => setRoute("about")}>
+                  👑 {t(lang, "प्रदेश मुख्य कार्यकारिणी देखें", "View State Executive")}
+                </button>
+                <button className="btn btn-primary btn-sm" onClick={() => setRoute("members")}>
+                  · {t(lang, "संपूर्ण सदस्य सूची", "Full Member Directory")} →
+                </button>
+              </div>
+            }
+          />
+          <div className="general-members-grid">
+            {members.map((m) => <MemberCard key={m.id} member={m} compact />)}
+          </div>
         </div>
       </section>
 
+      {/* NEWS & SOCIAL SECTION */}
       <section className="section-block">
         <div className="container">
-          <SectionHead eyebrow={`📰 ${t(lang, stx.homeNewsEyebrowHi, stx.homeNewsEyebrowEn)}`} title={t(lang, stx.homeNewsTitleHi, stx.homeNewsTitleEn)} />
+          <SectionHead
+            eyebrow={`📰 ${t(lang, stx.homeNewsEyebrowHi, stx.homeNewsEyebrowEn)}`}
+            title={t(lang, stx.homeNewsTitleHi, stx.homeNewsTitleEn)}
+          />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(min(100%,330px),1fr))", gap: 22 }}>
             {state.news.map((n) => (
-              <article className="card-panel" key={n.id} style={{ padding: 0, overflow: "hidden" }}>
-                <img src={n.imageUrl || "/images/hero-banner-1.jpg"} style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover" }} alt="" />
-                <div style={{ padding: 18 }}>
-                  <div style={{ fontSize: "0.78rem", color: "var(--accent)", fontWeight: 800 }}>{t(lang, n.categoryHi || n.category, n.categoryEn || n.category)} • {n.date}</div>
-                  <h3 style={{ color: "var(--primary)" }}>{t(lang, n.titleHi, n.titleEn)}</h3>
-                  <p style={{ color: "var(--text-muted)" }}>{t(lang, n.summaryHi, n.summaryEn)}</p>
+              <article className="news-card" key={n.id}>
+                <div className="news-card-img-wrap">
+                  <img src={n.imageUrl || "/images/hero-banner-1.jpg"} alt="" />
+                </div>
+                <div className="news-card-body">
+                  <div className="news-meta-row">
+                    <span className="news-category-tag">{t(lang, n.categoryHi || n.category, n.categoryEn || n.category)}</span>
+                    {n.location && <span className="news-location">📍 {n.location}</span>}
+                    <span className="news-date">📅 {n.date}</span>
+                  </div>
+                  <h3 className="news-title">{t(lang, n.titleHi, n.titleEn)}</h3>
+                  <p className="news-summary">{t(lang, n.summaryHi, n.summaryEn)}</p>
+                  <a
+                    className="btn btn-whatsapp btn-sm news-share-btn"
+                    href={`https://wa.me/?text=${encodeURIComponent((t(lang, n.titleHi, n.titleEn) || "") + "\n" + (n.link || window.location.href))}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    🟢 {t(lang, "WhatsApp पर साझा करें", "Share on WhatsApp")}
+                  </a>
                 </div>
               </article>
             ))}
@@ -181,17 +239,37 @@ export function CircularCard({ item, kind = "circular" }) {
   const { lang, signed, setModal } = usePortal();
   const locked = Boolean((item.requiresMemberLogin || item.isLockedForVisitor) && !signed);
   const isPdf = item.fileType === "pdf" || String(item.fileUrl || "").toLowerCase().endsWith(".pdf");
+  const typeLabel = locked ? t(lang, "सदस्य लॉगिन", "Members only") : isPdf ? "PDF" : t(lang, "परिपत्र / इमेज", "Circular / Image");
   return (
-    <article className="card-panel" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <div>
-        <span className="badge badge-in_progress">{locked ? t(lang, "सदस्य लॉगिन", "Members only") : isPdf ? "PDF" : t(lang, "परिपत्र", "Circular")}</span>
-        <div className="circular-exact-thumb" style={{ cursor: "pointer", marginTop: 8 }} onClick={() => setModal({ kind: "file", item, locked })}>
-          {locked ? <div style={{ textAlign: "center", padding: 24 }}>🔒 {t(lang, "देखने हेतु सदस्य लॉगिन आवश्यक", "Member login required")}</div> : isPdf ? <div style={{ textAlign: "center", padding: 24 }}>📕 PDF</div> : <img src={item.fileUrl} alt="" />}
-        </div>
-        <h3 style={{ color: "var(--primary)" }}>{t(lang, item.titleHi, item.titleEn)}</h3>
-        <div style={{ fontSize: "0.8rem", color: "#64748b" }}>{t(lang, item.issuerHi, item.issuerEn)} {item.date}</div>
+    <article className="circular-card">
+      <div className="circular-card-toprow">
+        <span className="badge badge-in_progress">{typeLabel}</span>
+        {item.date && <span className="circular-date-badge">📅 {item.date}</span>}
       </div>
-      <button className="btn btn-primary btn-sm" onClick={() => locked ? setModal({ kind: "login" }) : setModal({ kind: "file", item, locked: false })}>{locked ? t(lang, "लॉगिन करें", "Login to view") : t(lang, "दस्तावेज़ देखें", "View document")}</button>
+      <div className="circular-exact-thumb" style={{ cursor: "pointer" }} onClick={() => setModal({ kind: "file", item, locked })}>
+        {locked
+          ? <div style={{ textAlign: "center", padding: 28 }}>🔒 {t(lang, "देखने हेतु सदस्य लॉगिन आवश्यक", "Member login required")}</div>
+          : isPdf
+            ? <div style={{ textAlign: "center", padding: 28, fontSize: "2rem" }}>📕<div style={{ fontSize: "0.85rem", marginTop: 6, color: "var(--text-muted)" }}>PDF</div></div>
+            : <img src={item.fileUrl} alt="" />}
+      </div>
+      {(item.issuerHi || item.issuerEn) && (
+        <div className="circular-issuer-label">{t(lang, item.issuerHi, item.issuerEn)}</div>
+      )}
+      <h3 className="circular-card-title">{t(lang, item.titleHi, item.titleEn)}</h3>
+      <div className="circular-card-actions">
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => locked ? setModal({ kind: "login" }) : setModal({ kind: "file", item, locked: false })}
+        >
+          <span>👁</span> {locked ? t(lang, "लॉगिन करें", "Login to view") : t(lang, "दस्तावेज़ देखें", "View document")}
+        </button>
+        {!locked && item.fileUrl && (
+          <a className="btn btn-outline btn-sm" href={item.fileUrl} download target="_blank" rel="noreferrer">
+            <span>⬇</span> {t(lang, "डाउनलोड करें", "Download")}
+          </a>
+        )}
+      </div>
     </article>
   );
 }
