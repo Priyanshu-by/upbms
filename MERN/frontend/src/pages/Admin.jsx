@@ -760,7 +760,7 @@ function Members({ portal, run }) {
 }
 
 function MemberForm({ member, state, session, run, onClose, showToast }) {
-  const cur = member || { status: "active", bloodGroup: "O+", designationHi: "सक्रिय बैंक मित्र सदस्य", designationEn: "Active Bank Mitra Member", feePaid: 251, displayOrder: 50, district: state.meta.districts[0], bankName: state.meta.banks[0], bcCompany: state.meta.bcCompanies[0] };
+  const cur = member || { status: "active", email: "", designationHi: "सक्रिय बैंक मित्र सदस्य", designationEn: "Active Bank Mitra Member", feePaid: 251, displayOrder: 50, district: state.meta.districts[0], bankName: state.meta.banks[0], bcCompany: state.meta.bcCompanies[0] };
   const sigs = state.settings.signatories || [];
   const letterIds = cur.letterSignatoryIds || (cur.signatoryId ? [cur.signatoryId] : state.settings.defaultSignatoryIds || []);
   const [photoUrl, setPhotoUrl] = useState(cur.photoUrl || "");
@@ -795,8 +795,8 @@ function MemberForm({ member, state, session, run, onClose, showToast }) {
         <select className="form-control" name="bcCompany" defaultValue={cur.bcCompany}>{state.meta.bcCompanies.map((c) => <option key={c}>{c}</option>)}</select>
         <Inp name="koCode" defaultValue={cur.koCode} placeholder="KO / CSP" />
         <Inp name="mobile" defaultValue={cur.mobile} placeholder="मोबाइल" required />
-        <Inp name="whatsapp" defaultValue={cur.whatsapp} placeholder="WhatsApp" />
-        <Inp name="bloodGroup" defaultValue={cur.bloodGroup || "O+"} />
+        <Inp name="websiteUrl" defaultValue={cur.websiteUrl || cur.website || ""} placeholder="वेबसाइट लिंक (Website Link e.g. https://...)" type="url" />
+        <Inp name="email" defaultValue={cur.email} placeholder="ईमेल आईडी (Email)" type="email" />
         <Inp name="displayOrder" type="number" defaultValue={cur.displayOrder || 50} />
         <Inp name="joinedDate" type="date" defaultValue={cur.joinedDate || today()} />
         <Inp name="validUntil" type="date" defaultValue={cur.validUntil || "2027-12-31"} />

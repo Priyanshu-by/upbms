@@ -184,7 +184,7 @@ window.UPBMSPrint = (function () {
                   <div class="cr80-tr"><span>${isEn ? "Bank" : "बैंक"}</span><span>${escapeHtml(localizeDual(member.bankName, lang))}</span></div>
                   <div class="cr80-tr"><span>${isEn ? "KO Code" : "केओ कोड"}</span><span>${escapeHtml(member.koCode || "—")}</span></div>
                   <div class="cr80-tr"><span>${isEn ? "Mobile" : "मोबाइल"}</span><span>${escapeHtml(member.mobile)}</span></div>
-                  <div class="cr80-tr"><span>${isEn ? "Blood / Exp." : "रक्त / वैधता"}</span><span style="color:#b91c1c">${escapeHtml(member.bloodGroup || "O+")} | ${escapeHtml(member.validUntil || "2027-12-31")}</span></div>
+                  <div class="cr80-tr"><span>${isEn ? "Email" : "ईमेल"}</span><span style="color:#0a2252;font-size:7.4px;word-break:break-all">${escapeHtml(member.email || "info@upbms.org")}</span></div>
                 </div>
               </div>
 
@@ -492,36 +492,34 @@ window.UPBMSPrint = (function () {
     const isPdf = item.fileType === "pdf" || url.toLowerCase().endsWith(".pdf") || url.startsWith("data:application/pdf");
 
     return `
-      <div id="printableArea" style="background:#ffffff;border-radius:14px;padding:12px">
-        <div style="margin-bottom:14px;padding-bottom:10px;border-bottom:1.5px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-          <div>
-            <h3 style="font-size:1.1rem;font-weight:900;color:#0a2252">${escapeHtml(title)}</h3>
-            <div style="font-size:0.82rem;color:#64748b;font-weight:700">
-              ${issuer ? `${escapeHtml(issuer)} • ` : ""}${item.date ? escapeHtml(item.date) : ""}${item.regRef ? ` • ${escapeHtml(item.regRef)}` : ""}
-            </div>
+      <div id="printableArea" style="background:#ffffff;border-radius:14px;padding:16px 20px">
+        <div style="margin-bottom:12px">
+          <h3 style="font-size:1.24rem;font-weight:900;color:#0a2252;margin-bottom:6px">${escapeHtml(title)}</h3>
+          <div style="font-size:0.88rem;color:#64748b;font-weight:700;margin-bottom:12px">
+            ${issuer ? `${escapeHtml(issuer)} • ` : ""}${item.date ? escapeHtml(item.date) : ""}${item.regRef ? ` • ${escapeHtml(item.regRef)}` : ""}
           </div>
           ${
             url
-              ? `<a href="${escapeHtml(url)}" download="${escapeHtml((item.titleEn || "Document").replace(/\s+/g, "_"))}" class="btn btn-primary btn-sm no-print">
-                   ⬇️ ${isEn ? "Download Original File" : "मूल फाइल डाउनलोड करें"}
+              ? `<a href="${escapeHtml(url)}" download="${escapeHtml((item.titleEn || "Document").replace(/\s+/g, "_"))}" class="btn btn-primary btn-sm no-print" style="display:inline-flex;align-items:center;gap:6px;background:#0d2d6c;color:#ffffff;font-weight:800;border-radius:8px;padding:7px 15px;text-decoration:none">
+                   ⬇ ${isEn ? "Download Original File" : "मूल फाइल डाउनलोड करें"}
                  </a>`
               : ""
           }
         </div>
+        <div style="border-bottom:1.5px solid #e2e8f0;margin-bottom:18px"></div>
 
         ${
           !url
             ? `<div style="padding:30px;text-align:center;color:#64748b">${isEn ? "No file attached." : "कोई फाइल संलग्न नहीं है।"}</div>`
             : isPdf
             ? `<iframe src="${escapeHtml(url)}" class="pdf-viewer-iframe" title="${escapeHtml(title)}"></iframe>`
-            : `<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;display:flex;justify-content:center">
-                 <img src="${escapeHtml(url)}" alt="${escapeHtml(title)}" style="max-width:100%;height:auto;object-fit:contain;margin:0 auto" />
+            : `<div style="background:#ffffff;border:1.5px solid #cbd5e1;border-radius:12px;padding:16px;box-shadow:0 4px 18px rgba(0,0,0,0.06);display:flex;justify-content:center">
+                 <img src="${escapeHtml(url)}" alt="${escapeHtml(title)}" style="max-width:100%;height:auto;object-fit:contain;margin:0 auto;display:block" />
                </div>`
         }
       </div>
     `;
   }
-
   // ==================== 5. SIGNED PAYMENT / DONATION RECEIPT (REQUIRES MEMBER/ADMIN LOGIN) ====================
   function renderReceiptHtml(payment, settings, overrideIds, lang = "hi", auditActor = null) {
     const isEn = lang === "en";

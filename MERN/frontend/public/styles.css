@@ -671,7 +671,7 @@ img {
 
 .section-eyebrow {
   display: inline-block;
-  font-size: 0.77rem;
+  font-size: 0.84rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -684,7 +684,7 @@ img {
 }
 
 .section-title {
-  font-size: clamp(1.35rem, 2.4vw, 1.92rem);
+  font-size: clamp(1.45rem, 2.6vw, 2.05rem);
   font-weight: 900;
   color: var(--primary);
   line-height: 1.25;
@@ -692,7 +692,7 @@ img {
 
 .section-sub {
   color: var(--text-muted);
-  font-size: 0.94rem;
+  font-size: 1.0rem; font-weight: 700;
   margin-top: 4px;
   max-width: 760px;
 }
@@ -709,27 +709,76 @@ img {
 .about-hero-banner {
   background: var(--hero-deck-bg);
   color: #ffffff;
-  padding: clamp(22px, 3vw, 34px);
+  padding: clamp(24px, 3.2vw, 38px);
   border-bottom: 4px solid var(--accent-warm);
+}
+
+.about-hero-banner h1 {
+  font-size: clamp(1.55rem, 2.7vw, 2.25rem);
+  font-weight: 900;
+  color: #ffd166;
+  line-height: 1.32;
+  margin: 12px 0 14px;
+}
+
+.about-hero-banner p {
+  color: #f1f5f9;
+  font-size: 1.05rem;
+  line-height: 1.82;
+  font-weight: 500;
 }
 
 .vm-two-col {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-  gap: 22px;
-  padding: clamp(20px, 2.8vw, 30px);
+  gap: 24px;
+  padding: clamp(22px, 3vw, 32px);
 }
 
 .vm-panel {
   background: #f8fafc;
   border: 1.5px solid var(--border);
   border-top: 4px solid var(--primary);
-  border-radius: 16px;
-  padding: 22px;
+  border-radius: 18px;
+  padding: clamp(22px, 2.6vw, 28px);
+  box-shadow: var(--shadow-sm);
 }
 
 .vm-panel.mission {
   border-top-color: var(--accent-warm);
+}
+
+.vm-panel h2 {
+  font-size: 1.32rem;
+  font-weight: 900;
+  color: var(--primary);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.35;
+}
+
+.vm-panel p {
+  font-size: 1.04rem;
+  color: #334155;
+  line-height: 1.76;
+  font-weight: 500;
+}
+
+.vm-panel ul {
+  padding-left: 22px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vm-panel li {
+  font-size: 1.02rem;
+  color: #334155;
+  line-height: 1.74;
+  font-weight: 500;
 }
 
 .certificates-grid {
@@ -1102,6 +1151,74 @@ img {
   border: 1px solid var(--border);
   margin-bottom: 20px;
   align-items: center;
+}
+
+.member-filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--surface);
+  padding: clamp(16px, 2.2vw, 22px);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+.member-filter-row {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 14px;
+  width: 100%;
+}
+
+.member-filter-row.secondary-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.member-filter-row .bank-select {
+  max-width: 320px;
+  width: 100%;
+}
+
+.btn-filter-reset {
+  background: #ffffff;
+  color: var(--primary);
+  border: 1.5px solid #cbd5e1;
+  padding: 9px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.94rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+}
+
+.btn-filter-reset:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: var(--primary-dark);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .member-filter-row {
+    grid-template-columns: 1fr;
+  }
+  .member-filter-row.secondary-row {
+    flex-wrap: wrap;
+  }
+  .member-filter-row .bank-select {
+    max-width: 100%;
+    flex: 1;
+  }
 }
 
 .form-grid {
@@ -1495,21 +1612,29 @@ textarea.form-control { min-height: 90px; resize: vertical; }
 }
 .footer-links button:hover, .footer-links a:hover { color: #ffd166; }
 
-.floating-wa {
+.floating-join, .floating-wa {
   position: fixed;
   bottom: 18px;
   left: 18px;
   z-index: 1200;
-  background: #16a34a;
+  background: linear-gradient(135deg, var(--accent-warm) 0%, var(--accent) 100%);
   color: #ffffff;
-  padding: 10px 16px;
+  border: none;
+  cursor: pointer;
+  padding: 10px 18px;
   border-radius: 999px;
   font-weight: 800;
-  font-size: 0.85rem;
-  box-shadow: 0 8px 22px rgba(22, 163, 74, 0.4);
+  font-size: 0.92rem;
+  box-shadow: 0 8px 22px rgba(234, 88, 12, 0.45);
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+.floating-join:hover, .floating-wa:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(234, 88, 12, 0.55);
 }
 
 /* ==================== RESPONSIVE BREAKPOINTS ==================== */
@@ -1535,42 +1660,129 @@ textarea.form-control { min-height: 90px; resize: vertical; }
     size: A4 portrait;
     margin: 8mm;
   }
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  /* 1. Completely hide elements that must never print or add page height */
+  .no-print,
+  .top-utility,
+  .site-header,
+  .ticker-bar,
+  .hero-showcase-wrapper,
+  .site-footer,
+  .toast-container,
+  .modal-header,
+  .filter-bar, .member-filter-bar,
+  .section-head,
+  .social-connect-grid,
+  .whatsapp-floating-btn {
+    display: none !important;
+  }
+
+  /* 2. When printing from a modal: remove <main> from document flow so background pages do not exist */
+  body.modal-open main,
+  body:has(.modal-backdrop) main {
+    display: none !important;
+  }
+
+  /* 3. Reset modal backdrop & box so they are in-flow (NOT position: fixed, which repeats on every page) */
+  .modal-backdrop {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    backdrop-filter: none !important;
+  }
+
+  .modal-box {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  .modal-body {
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* 4. Target the printable area */
   body * {
     visibility: hidden;
   }
+
   #printableArea, #printableArea * {
-    visibility: visible;
+    visibility: visible !important;
   }
+
   #printableArea {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 194mm !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
-  .no-print {
-    display: none !important;
+
+  /* Constrain images so certificate fits on 1 single page without page break */
+  #printableArea img {
+    max-width: 100% !important;
+    max-height: 220mm !important;
+    height: auto !important;
+    object-fit: contain !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
+
   .cr80-card {
     width: 54mm !important;
     height: 85.6mm !important;
     box-shadow: none !important;
-    page-break-inside: avoid;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
   .a4-sheet {
     width: 194mm !important;
-    min-height: 277mm !important;
+    min-height: 265mm !important;
+    max-height: 275mm !important;
     box-shadow: none !important;
     margin: 0 auto !important;
-    padding: 12mm 14mm !important;
+    padding: 10mm 12mm !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 }
 
-
-/* ==========================================================================
    HOME PAGE ENHANCED SECTIONS — Circular Cards, News Cards, Members
    ========================================================================== */
 
@@ -1742,4 +1954,162 @@ textarea.form-control { min-height: 90px; resize: vertical; }
 /* ── Demands section: Charter link ── */
 .demands-charter-link {
   margin-bottom: 20px;
+}
+
+
+/* ==================== MEMBERSHIP (JOIN) PAGE LAYOUT ==================== */
+.join-layout-grid {
+  display: grid;
+  grid-template-columns: 1.85fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.join-sidebar-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.join-sidebar-card {
+  border-radius: var(--radius);
+  padding: 20px 22px;
+}
+
+.join-benefits-card {
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+}
+
+.join-recent-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.join-sidebar-title {
+  font-size: 1.02rem;
+  font-weight: 900;
+  color: var(--primary);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.35;
+}
+
+.join-benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.join-benefits-list li {
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 14px;
+}
+
+.join-benefits-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--primary);
+  font-weight: 900;
+}
+
+.join-benefits-list li b {
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.join-recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.join-recent-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 10px;
+}
+
+.join-recent-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.join-recent-name {
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.join-recent-code {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.join-recent-amount {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #15803d;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.join-pay-box {
+  background: #fff7ed;
+  border: 1.5px solid #fed7aa;
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.join-pay-qr-wrap {
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #fed7aa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 960px) {
+  .join-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .join-pay-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Form validation styles */
+.form-control.is-invalid {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15) !important;
 }
