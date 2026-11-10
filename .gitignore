@@ -1,10 +1,8 @@
 node_modules
 dist
-server/data/mongodata
-server/uploads/*
-!server/uploads/.gitkeep
 .DS_Store
 
-MERN/backend/data/
-MERN/node_modules/
-node_modules/
+MERN/backend/data/mongodata
+MERN/backend/data/db.json
+MERN/backend/uploads/*
+!MERN/backend/uploads/.gitkeep

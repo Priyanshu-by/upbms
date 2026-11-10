@@ -14,7 +14,6 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "mongodb-memory-server": "^10.1.4",
-    "mongoose": "^8.9.5",
-    "upbms-mern": "file:../.."
+    "mongoose": "^8.9.5"
   }
 }

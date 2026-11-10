@@ -154,6 +154,7 @@ export function AboutPage() {
 
 export function MembersPage() {
   const { state, lang } = usePortal();
+  const stx = state?.settings?.sectionTexts || {};
   const [q, setQ] = useState("");
   const [district, setDistrict] = useState("");
   const [bank, setBank] = useState("");
@@ -166,7 +167,7 @@ export function MembersPage() {
   });
   return (
     <section className="section-block"><div className="container">
-      <SectionHead eyebrow={t(lang, "75 जनपद सदस्य नेटवर्क", "75 DISTRICTS MEMBER DIRECTORY")} title={t(lang, "पंजीकृत पदाधिकारी एवं बैंक मित्र सदस्य सूची", "Registered Office-Bearers & Bank Mitra Members")} />
+      <SectionHead eyebrow={t(lang, stx.membersPageEyebrowHi || "75 जनपद सदस्य नेटवर्क", stx.membersPageEyebrowEn || "75 DISTRICTS MEMBER DIRECTORY")} title={t(lang, stx.membersPageTitleHi || "पंजीकृत पदाधिकारी एवं बैंक मित्र सदस्य सूची", stx.membersPageTitleEn || "Registered Office-Bearers & Bank Mitra Members")} sub={t(lang, stx.membersPageSubHi || "", stx.membersPageSubEn || "")} />
       <div className="filter-bar">
         <input className="form-control" style={{ flex: 1 }} value={q} onChange={(e) => setQ(e.target.value)} placeholder={t(lang, "नाम, सदस्य आईडी या मोबाइल खोजें", "Search name, member ID or mobile")} />
         <select className="form-control" value={district} onChange={(e) => setDistrict(e.target.value)}><option value="">{t(lang, "सभी जनपद", "All districts")}</option>{state.meta.districts.map((d) => <option key={d} value={d}>{localizeDual(d, lang)}</option>)}</select>
@@ -198,11 +199,12 @@ export function CircularCard({ item, kind = "circular" }) {
 
 export function CircularsPage() {
   const { state, lang } = usePortal();
+  const stx = state?.settings?.sectionTexts || {};
   const [q, setQ] = useState("");
   const list = (state.circulars || []).filter((c) => !q || `${c.titleHi} ${c.titleEn} ${c.issuerHi}`.toLowerCase().includes(q.toLowerCase()));
   return (
     <section className="section-block"><div className="container">
-      <SectionHead eyebrow={t(lang, "बैंक परिपत्र", "BANK CIRCULARS")} title={t(lang, "बैंक मित्र सर्कुलर, आदेश एवं पीडीएफ", "Bank Mitra circulars, orders and PDFs")} />
+      <SectionHead eyebrow={t(lang, stx.circularsPageEyebrowHi || "बैंक परिपत्र", stx.circularsPageEyebrowEn || "BANK CIRCULARS")} title={t(lang, stx.circularsPageTitleHi || "बैंक मित्र सर्कुलर, आदेश एवं पीडीएफ", stx.circularsPageTitleEn || "Bank Mitra circulars, orders and PDFs")} sub={t(lang, stx.circularsPageSubHi || "", stx.circularsPageSubEn || "")} />
       <div className="filter-bar"><input className="form-control" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t(lang, "सर्कुलर खोजें", "Search circulars")} /></div>
       <div className="circulars-grid">{list.map((c) => <CircularCard key={c.id} item={c} />)}</div>
     </div></section>
@@ -211,9 +213,10 @@ export function CircularsPage() {
 
 export function DocumentsPage() {
   const { state, lang, signed, setModal } = usePortal();
+  const stx = state?.settings?.sectionTexts || {};
   return (
     <section className="section-block"><div className="container">
-      <SectionHead eyebrow={t(lang, "आधिकारिक संघ अभिलेख", "OFFICIAL ASSOCIATION RECORDS")} title={t(lang, "संघ दस्तावेज़", "Association Documents")} sub={t(lang, "हस्ताक्षर एवं मुहर युक्त प्रपत्र केवल सदस्य लॉगिन के बाद खुलते हैं।", "Signed and stamped copies open only after member login.")} />
+      <SectionHead eyebrow={t(lang, stx.documentsPageEyebrowHi || "आधिकारिक संघ अभिलेख", stx.documentsPageEyebrowEn || "OFFICIAL ASSOCIATION RECORDS")} title={t(lang, stx.documentsPageTitleHi || "संघ दस्तावेज़", stx.documentsPageTitleEn || "Association Documents")} sub={t(lang, stx.documentsPageSubHi || "हस्ताक्षर एवं मुहर युक्त प्रपत्र केवल सदस्य लॉगिन के बाद खुलते हैं।", stx.documentsPageSubEn || "Signed and stamped copies open only after member login.")} />
       <div className="card-panel" style={{ marginBottom: 16, background: signed ? "#f0fdf4" : "#fff7ed" }}>
         {signed ? t(lang, "सत्यापित सत्र सक्रिय है।", "Verified session is active.") : t(lang, "बिना लॉगिन केवल सादा पाठ उपलब्ध है।", "Only plain text is available without login.")}
         {!signed && <button className="btn btn-primary btn-sm" style={{ marginLeft: 12 }} onClick={() => setModal({ kind: "login" })}>{t(lang, "सदस्य लॉगिन", "Member login")}</button>}
@@ -237,10 +240,11 @@ export function DocumentsPage() {
 
 export function PortalsPage() {
   const { state, lang } = usePortal();
+  const stx = state?.settings?.sectionTexts || {};
   const portals = state.externalLinks.filter((l) => l.active !== false);
   return (
     <section className="section-block"><div className="container">
-      <SectionHead eyebrow={t(lang, "संबद्ध वेबसाइट्स", "LINKED PORTALS")} title={t(lang, "महत्वपूर्ण बैंकिंग एवं सरकारी पोर्टल", "Important banking and government portals")} />
+      <SectionHead eyebrow={t(lang, stx.portalsPageEyebrowHi || "संबद्ध वेबसाइट्स", stx.portalsPageEyebrowEn || "LINKED PORTALS")} title={t(lang, stx.portalsPageTitleHi || "महत्वपूर्ण बैंकिंग एवं सरकारी पोर्टल", stx.portalsPageTitleEn || "Important banking and government portals")} sub={t(lang, stx.portalsPageSubHi || "", stx.portalsPageSubEn || "")} />
       <div className="external-portals-grid">{portals.map((l) => <PortalCard key={l.id} link={l} />)}</div>
     </div></section>
   );
@@ -249,6 +253,7 @@ export function PortalsPage() {
 export function JoinPage() {
   const { state, lang, showToast, refresh, session, persistSession, setRoute } = usePortal();
   const s = state.settings;
+  const stx = s?.sectionTexts || {};
   const tc = s.termsAndConditions || {};
   const [fee, setFee] = useState(s.membershipFeeGeneral);
   const [plan, setPlan] = useState("general");
@@ -293,7 +298,7 @@ export function JoinPage() {
 
   return (
     <section className="section-block"><div className="container">
-      <SectionHead eyebrow={t(lang, "ऑनलाइन सदस्यता", "ONLINE MEMBERSHIP")} title={t(lang, "बैंक मित्र सदस्यता पंजीकरण", "Bank Mitra membership registration")} />
+      <SectionHead eyebrow={t(lang, stx.joinPageEyebrowHi || "ऑनलाइन सदस्यता", stx.joinPageEyebrowEn || "ONLINE MEMBERSHIP")} title={t(lang, stx.joinPageTitleHi || "बैंक मित्र सदस्यता पंजीकरण", stx.joinPageTitleEn || "Bank Mitra membership registration")} sub={t(lang, stx.joinPageSubHi || "", stx.joinPageSubEn || "")} />
       <form className="card-panel" onSubmit={onSubmit}>
         <div className="form-grid">
           <Field label={t(lang, "पूरा नाम (हिंदी)", "Full name (Hindi)")} name="nameHi" required />
@@ -337,6 +342,7 @@ export function JoinPage() {
 export function DonatePage() {
   const { state, lang, showToast, refresh, session, setModal } = usePortal();
   const s = state.settings;
+  const stx = s?.sectionTexts || {};
   const [amount, setAmount] = useState(501);
   const upi = `upi://pay?pa=${encodeURIComponent(s.upiId || "")}&pn=${encodeURIComponent(s.upiPayeeName || "")}&cu=INR`;
   const donations = state.payments.filter((p) => p.paymentCategory === "donation");
@@ -352,7 +358,7 @@ export function DonatePage() {
   }
   return (
     <section className="section-block"><div className="container">
-      <SectionHead eyebrow={t(lang, "कल्याण कोष", "WELFARE FUND")} title={t(lang, "स्वैच्छिक सहयोग राशि", "Voluntary contribution")} />
+      <SectionHead eyebrow={t(lang, stx.donatePageEyebrowHi || "कल्याण कोष", stx.donatePageEyebrowEn || "WELFARE FUND")} title={t(lang, stx.donatePageTitleHi || "स्वैच्छिक सहयोग राशि", stx.donatePageTitleEn || "Voluntary contribution")} sub={t(lang, stx.donatePageSubHi || "", stx.donatePageSubEn || "")} />
       <div className="form-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 20 }}>
         <form className="card-panel" onSubmit={onSubmit}>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>{[101, 251, 501, 1100, 2100].map((n) => <button type="button" key={n} className="btn btn-outline btn-sm" onClick={() => setAmount(n)}>₹{n}</button>)}</div>
@@ -376,6 +382,7 @@ export function DonatePage() {
 
 export function VerifyPage() {
   const { state, lang, session, setModal, recordSignedUsage } = usePortal();
+  const stx = state?.settings?.sectionTexts || {};
   const [query, setQuery] = useState(session?.member?.memberCode || "");
   const [found, setFound] = useState(null);
   const [tab, setTab] = useState("idcard");
@@ -409,7 +416,7 @@ export function VerifyPage() {
 
   return (
     <section className="section-block"><div className="container">
-      <SectionHead eyebrow={t(lang, "सदस्य सत्यापन", "MEMBER VERIFICATION")} title={t(lang, "पहचान पत्र, नियुक्ति पत्र एवं रसीद", "ID card, appointment letter and receipt")} sub={t(lang, "हस्ताक्षर युक्त प्रपत्र केवल उसी सक्रिय सदस्य के लॉगिन पर खुलते हैं।", "Signed documents open only for that active member.")} />
+      <SectionHead eyebrow={t(lang, stx.verifyPageEyebrowHi || "सदस्य सत्यापन", stx.verifyPageEyebrowEn || "MEMBER VERIFICATION")} title={t(lang, stx.verifyPageTitleHi || "पहचान पत्र, नियुक्ति पत्र एवं रसीद", stx.verifyPageTitleEn || "ID card, appointment letter and receipt")} sub={t(lang, stx.verifyPageSubHi || "हस्ताक्षर युक्त प्रपत्र केवल उसी सक्रिय सदस्य के लॉगिन पर खुलते हैं।", stx.verifyPageSubEn || "Signed documents open only for that active member.")} />
       <form className="card-panel no-print" onSubmit={lookup} style={{ display: "flex", gap: 10, marginBottom: 16 }}>
         <input className="form-control" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="UPBMS-CORE-001" required />
         <button className="btn btn-primary">{t(lang, "जाँचें", "Check")}</button>
@@ -440,6 +447,7 @@ export function VerifyPage() {
 
 export function GrievancePage() {
   const { state, lang, showToast, refresh } = usePortal();
+  const stx = state?.settings?.sectionTexts || {};
   const [list, setList] = useState(null);
   if (!grievanceEnabled(state)) return <section className="section-block"><div className="container card-panel">{t(lang, "शिकायत मॉड्यूल बंद है।", "Grievance module is turned off.")}</div></section>;
   const rows = list || state.grievances;
@@ -461,7 +469,7 @@ export function GrievancePage() {
   }
   return (
     <section className="section-block"><div className="container">
-      <SectionHead eyebrow={t(lang, "शिकायत निवारण", "GRIEVANCE")} title={t(lang, "समस्या दर्ज करें", "Register a grievance")} />
+      <SectionHead eyebrow={t(lang, stx.grievancePageEyebrowHi || "शिकायत निवारण", stx.grievancePageEyebrowEn || "GRIEVANCE")} title={t(lang, stx.grievancePageTitleHi || "समस्या दर्ज करें", stx.grievancePageTitleEn || "Register a grievance")} sub={t(lang, stx.grievancePageSubHi || "", stx.grievancePageSubEn || "")} />
       <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 20 }}>
         <form className="card-panel" onSubmit={submit}>
           <Field label={t(lang, "नाम", "Name")} name="applicantName" required />

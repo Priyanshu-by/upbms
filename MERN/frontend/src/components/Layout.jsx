@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePortal } from "../context";
-import { NAV_ICONS, SOCIAL, grievanceEnabled, t } from "../utils";
+import { NAV_ICONS, SOCIAL, getSocialStrip, grievanceEnabled, t } from "../utils";
 
 function Icon({ name }) {
   return <span dangerouslySetInnerHTML={{ __html: SOCIAL[name] || SOCIAL.link }} />;
@@ -20,15 +20,9 @@ export function Layout({ children }) {
     .filter((it) => !["admin", "idcard", "donation"].includes(it.id))
     .sort((a, b) => (a.order || 99) - (b.order || 99));
   const ticker = lang === "en" ? (s.tickerNoticesEn || s.tickerNoticesHi || []) : (s.tickerNoticesHi || []);
-  const socials = [
-    ["whatsappChannel", "whatsapp", "WA"],
-    ["whatsappGroup", "whatsapp", lang === "en" ? "Group" : "ग्रुप"],
-    ["facebook", "facebook", "FB"],
-    ["instagram", "instagram", "Insta"],
-    ["youtube", "youtube", "YT"],
-    ["twitter", "twitter", "X"],
-    ["telegram", "telegram", "TG"]
-  ];
+  const socialItems = getSocialStrip(s)
+    .filter((it) => it.visible !== false && Boolean(it.url && String(it.url).trim()))
+    .sort((a, b) => (a.order || 99) - (b.order || 99));
   const waUrl = `https://wa.me/${String(s.whatsappNumber || "919450011223").replace(/\D/g, "")}`;
   const member = session?.member;
 
@@ -42,8 +36,11 @@ export function Layout({ children }) {
           </div>
           <div className="top-right-actions">
             <div className="social-icon-strip">
-              {socials.filter(([key]) => sl[key]).map(([key, icon, label]) => (
-                <a key={key} href={sl[key]} target="_blank" rel="noreferrer" className="soc-icon-btn"><Icon name={icon} /><span>{label}</span></a>
+              {socialItems.map((it) => (
+                <a key={it.id} href={it.url} target="_blank" rel="noreferrer" className="soc-icon-btn">
+                  <Icon name={it.icon} />
+                  <span>{t(lang, it.labelHi, it.labelEn)}</span>
+                </a>
               ))}
             </div>
             <button className="btn-lang" onClick={() => setLang(lang === "hi" ? "en" : "hi")}>🌐 {lang === "hi" ? "Switch to English" : "हिंदी में देखें"}</button>

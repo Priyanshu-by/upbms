@@ -345,10 +345,18 @@ app.put("/api/settings", requireAdmin, async (req, res) => {
         receipt: { ...(prev.templateBackgrounds?.receipt || {}), ...(body.templateBackgrounds.receipt || {}) }
       }
     : prev.templateBackgrounds;
+  const nextStrip = Array.isArray(body.socialStrip) ? body.socialStrip : prev.socialStrip;
+  const syncedSocialLinks = { ...(prev.socialLinks || {}), ...(body.socialLinks || {}) };
+  if (Array.isArray(body.socialStrip)) {
+    body.socialStrip.forEach((it) => {
+      if (it && it.id && it.url !== undefined) syncedSocialLinks[it.id] = it.url;
+    });
+  }
   db.settings = {
     ...prev,
     ...body,
-    socialLinks: { ...(prev.socialLinks || {}), ...(body.socialLinks || {}) },
+    socialStrip: nextStrip,
+    socialLinks: syncedSocialLinks,
     headerButtons: { ...(prev.headerButtons || {}), ...(body.headerButtons || {}) },
     sectionTexts: { ...(prev.sectionTexts || {}), ...(body.sectionTexts || {}) },
     aboutVisionMission: { ...(prev.aboutVisionMission || {}), ...(body.aboutVisionMission || {}) },
