@@ -453,6 +453,7 @@ app.post("/api/members", async (req, res) => {
     mobile: String(body.mobile || "").trim(),
     whatsapp: String(body.whatsapp || body.mobile || "").trim(),
     email: body.email || "",
+    websiteUrl: String(body.websiteUrl || body.website || "").trim(),
     bloodGroup: body.bloodGroup || "O+",
     photoUrl: body.photoUrl || "",
     messageHi: body.messageHi || "",
@@ -509,6 +510,7 @@ app.put("/api/members/:id", requireAdmin, async (req, res) => {
   const updated = {
     ...prev,
     ...body,
+    websiteUrl: body.websiteUrl !== undefined ? String(body.websiteUrl || "").trim() : (prev.websiteUrl || prev.website || ""),
     password: body.password ? String(body.password).trim() : (prev.password || "123456"),
     isCoreMember: nextIsCore,
     memberCode,
@@ -679,8 +681,8 @@ app.delete("/api/grievances/:id", requireAdmin, async (req, res) => {
 
 app.get("/api/export/members.csv", requireAdmin, (_req, res) => {
   csvResponse(res, "UPBMS_Members_List.csv",
-    ["Member ID", "Type", "Name (Hindi)", "Name (English)", "Designation (Hi)", "Designation (En)", "District", "Block", "Bank Name", "BC Company", "KO/CSP Code", "Mobile", "Blood Group", "Status", "Joined Date", "Valid Until", "Fee Paid"],
-    db.members.map((m) => [m.memberCode, m.isCoreMember ? "CORE MEMBER" : m.memberCategory, m.nameHi, m.nameEn, m.designationHi, m.designationEn, m.district, m.block, m.bankName, m.bcCompany, m.koCode, m.mobile, m.bloodGroup, m.status, m.joinedDate, m.validUntil, m.feePaid])
+    ["Member ID", "Type", "Name (Hindi)", "Name (English)", "Designation (Hi)", "Designation (En)", "District", "Block", "Bank Name", "BC Company", "KO/CSP Code", "Mobile", "Email", "Status", "Joined Date", "Valid Until", "Fee Paid"],
+    db.members.map((m) => [m.memberCode, m.isCoreMember ? "CORE MEMBER" : m.memberCategory, m.nameHi, m.nameEn, m.designationHi, m.designationEn, m.district, m.block, m.bankName, m.bcCompany, m.koCode, m.mobile, m.email || "", m.status, m.joinedDate, m.validUntil, m.feePaid])
   );
 });
 

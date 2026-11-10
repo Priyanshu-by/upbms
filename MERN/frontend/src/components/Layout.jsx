@@ -144,7 +144,16 @@ export function Layout({ children }) {
           </div>
         </div>
       </footer>
-      <a href={waUrl} target="_blank" rel="noreferrer" className="floating-wa no-print">💬 {t(lang, "UPBMS WhatsApp सहायता", "UPBMS WhatsApp Support")}</a>
+      <button
+        type="button"
+        className="floating-join no-print"
+        onClick={() => {
+          setRoute("join");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
+        ✍️ {t(lang, hb.joinLabelHi || "सदस्य बनें", hb.joinLabelEn || "Join Membership")}
+      </button>
     </>
   );
 }
@@ -196,8 +205,8 @@ export function MemberCard({ member, compact }) {
       </div>
     );
   }
-  const wa = `https://wa.me/${String(member.whatsapp || member.mobile).replace(/\D/g, "")}`;
   const quote = t(lang, member.messageHi, member.messageEn);
+  const website = member.websiteUrl || member.website;
   return (
     <article className="core-card">
       <div className="core-card-top-ribbon"><span>★ {t(lang, "प्रदेश मुख्य कार्यकारिणी", "STATE CORE EXECUTIVE COMMITTEE")}</span><span>ID: {member.memberCode}</span></div>
@@ -212,12 +221,22 @@ export function MemberCard({ member, compact }) {
           <div className="core-meta-list">
             <span>📍 {window.UPBMSPrint?.localizeDual?.(member.district, lang) || member.district}</span>
             <span>🏦 {member.bankName}</span>
-            <span>🩸 {t(lang, "रक्त समूह:", "Blood Group:")} <b>{member.bloodGroup || "O+"}</b></span>
+            <span>✉️ {t(lang, "ईमेल:", "Email:")} <b>{member.email || "info@upbms.org"}</b></span>
           </div>
           {quote && <div className="core-quote">“{quote}”</div>}
           <div className="core-actions">
             <a href={`tel:${member.mobile}`} className="btn btn-primary btn-sm">📞 {member.mobile}</a>
-            <a href={wa} target="_blank" rel="noreferrer" className="btn btn-whatsapp btn-sm">💬 WhatsApp</a>
+            {website ? (
+              <a
+                href={website.startsWith("http://") || website.startsWith("https://") ? website : `https://${website}`}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-outline btn-sm"
+                style={{ display: "inline-flex", alignItems: "center", gap: 5 }}
+              >
+                🌐 {t(lang, "वेबसाइट", "Website")}
+              </a>
+            ) : null}
           </div>
         </div>
       </div>

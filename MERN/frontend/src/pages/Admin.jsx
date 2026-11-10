@@ -1056,6 +1056,7 @@ function MemberForm({ member, state, session, run, onClose, showToast, lang }) {
           <Field label={t(lang, "मोबाइल नंबर", "Mobile Number")}><Inp name="mobile" defaultValue={cur.mobile} required /></Field>
           <Field label={t(lang, "व्हाट्सएप नंबर", "WhatsApp Number")}><Inp name="whatsapp" defaultValue={cur.whatsapp || cur.mobile} /></Field>
           <Field label={t(lang, "ईमेल पता", "Email Address")}><Inp name="email" type="email" defaultValue={cur.email} /></Field>
+          <Field label={t(lang, "वेबसाइट लिंक", "Website Link")}><Inp name="websiteUrl" defaultValue={cur.websiteUrl || cur.website || ""} placeholder="https://..." type="url" /></Field>
           <Field label={t(lang, "रक्त समूह", "Blood Group")}>
             <select className="form-control" name="bloodGroup" defaultValue={cur.bloodGroup || "O+"}>
               {["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"].map((bg) => <option key={bg}>{bg}</option>)}
